@@ -14,16 +14,24 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.injection;
+package com.igoticecream.pokemon.sniper.injection.application;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import javax.inject.Singleton;
 
-import javax.inject.Qualifier;
+import android.content.Context;
 
-@Qualifier
-@Retention(RetentionPolicy.RUNTIME)
+import com.igoticecream.pokemon.sniper.data.PokeSniperService;
+import com.igoticecream.pokemon.sniper.injection.network.NetworkModule;
+
+import dagger.Component;
+
+@Singleton
+@Component(modules = {ApplicationModule.class, NetworkModule.class})
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public @interface ApplicationContext {
+public interface ApplicationComponent {
 
+	@ApplicationContext
+	Context getContext();
+
+	PokeSniperService getPokeSniperService();
 }

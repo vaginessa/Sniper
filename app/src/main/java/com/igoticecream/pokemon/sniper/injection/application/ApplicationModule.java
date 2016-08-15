@@ -14,16 +14,21 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.injection;
+package com.igoticecream.pokemon.sniper.injection.application;
+
+import javax.inject.Singleton;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+
+import com.google.gson.Gson;
+import com.igoticecream.pokemon.sniper.data.PokeSniperService;
+import com.igoticecream.pokemon.sniper.data.PokeSniperServiceFactory;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.OkHttpClient;
 
 @Module
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
@@ -47,7 +52,8 @@ public final class ApplicationModule {
 	}
 
 	@Provides
-	public SharedPreferences provideSharedPreference() {
-		return PreferenceManager.getDefaultSharedPreferences(mApplication);
+	@Singleton
+	public PokeSniperService providePokeSniperService(OkHttpClient client, Gson gson) {
+		return PokeSniperServiceFactory.create(client, gson);
 	}
 }

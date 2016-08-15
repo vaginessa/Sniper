@@ -14,25 +14,16 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.presentation;
+package com.igoticecream.pokemon.sniper.injection.application;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
-import com.igoticecream.pokemon.sniper.R;
-import com.igoticecream.pokemon.sniper.SniperApp;
-import com.igoticecream.pokemon.sniper.injection.application.ApplicationComponent;
+import javax.inject.Qualifier;
 
+@Qualifier
+@Retention(RetentionPolicy.RUNTIME)
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public class HomeActivity extends AppCompatActivity {
+public @interface ApplicationContext {
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_home);
-
-		ApplicationComponent component = SniperApp.get(this).getComponent();
-
-		component.getPokeSniperService();
-	}
 }

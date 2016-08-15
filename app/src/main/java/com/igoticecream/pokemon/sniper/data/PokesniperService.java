@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.injection;
+package com.igoticecream.pokemon.sniper.data;
 
-import android.content.Context;
+import java.util.List;
 
-import dagger.Component;
+import retrofit2.http.GET;
+import rx.Observable;
 
-@Component(modules = ApplicationModule.class)
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public interface ApplicationComponent {
+public interface PokeSniperService {
 
-	@ApplicationContext
-	Context getContext();
+	String ENDPOINT = "http://pokesnipers.com/api/v1/";
+
+	@GET("pokemon")
+	Observable<List<Object>> getPokemons();
 }

@@ -16,15 +16,18 @@
 
 package com.igoticecream.pokemon.sniper;
 
+import java.net.Proxy;
+
 import javax.annotation.Nonnull;
 
 import android.app.Application;
 import android.content.Context;
 
 import com.igoticecream.pokemon.sniper.common.logging.DebugTree;
-import com.igoticecream.pokemon.sniper.injection.ApplicationComponent;
-import com.igoticecream.pokemon.sniper.injection.ApplicationModule;
-import com.igoticecream.pokemon.sniper.injection.DaggerApplicationComponent;
+import com.igoticecream.pokemon.sniper.injection.application.ApplicationComponent;
+import com.igoticecream.pokemon.sniper.injection.application.ApplicationModule;
+import com.igoticecream.pokemon.sniper.injection.application.DaggerApplicationComponent;
+import com.igoticecream.pokemon.sniper.injection.network.NetworkModule;
 
 import timber.log.Timber;
 
@@ -50,6 +53,7 @@ public class SniperApp extends Application {
 		if (mApplicationComponent == null) {
 			mApplicationComponent = DaggerApplicationComponent.builder()
 				.applicationModule(new ApplicationModule(this))
+				.networkModule(new NetworkModule(Proxy.NO_PROXY))
 				.build();
 		}
 		return mApplicationComponent;

@@ -45,8 +45,6 @@ android {
     }
     buildTypes {
         debug {
-            signingConfig signingConfigs.sniper
-
             useProguard false
             minifyEnabled false
             shrinkResources false
@@ -92,14 +90,24 @@ android {
 
 dependencies {
     compile libraries.supportLib
-    compile libraries.rxJava
     compile libraries.timber
+
+    compile libraries.rxJava
+    compile libraries.rxAndroid
+    compile libraries.rxBinding
+
+    compile libraries.okHttp
+    compile libraries.retrofit
 
     compile libraries.dagger
     apt libraries.daggerCompiler
     provided libraries.jsr250
 
     provided libraries.jsr305
+
+    apt libraries.autoValue
+    apt libraries.autoValueGson
+    provided libraries.autoValueAnnotations
 }
 
 tasks.withType(Test) {

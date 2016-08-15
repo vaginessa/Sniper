@@ -17,6 +17,7 @@
 package com.igoticecream.pokemon.sniper;
 
 import java.net.Proxy;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnull;
 
@@ -53,7 +54,7 @@ public class SniperApp extends Application {
 		if (mApplicationComponent == null) {
 			mApplicationComponent = DaggerApplicationComponent.builder()
 				.applicationModule(new ApplicationModule(this))
-				.networkModule(new NetworkModule(Proxy.NO_PROXY))
+				.networkModule(new NetworkModule(Proxy.NO_PROXY, 10, TimeUnit.SECONDS))
 				.build();
 		}
 		return mApplicationComponent;

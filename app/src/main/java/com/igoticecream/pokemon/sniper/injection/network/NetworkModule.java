@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
 
 import android.app.Application;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.gson.FieldNamingPolicy;
@@ -35,22 +36,21 @@ import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
 @Module
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
 public class NetworkModule {
 
-	private static final int SECONDS_TIMEOUT = 10;
-
 	@Nullable
 	private final Proxy mProxy;
+	private final long mTimeout;
+	private final TimeUnit mTimeUnit;
 
-	public NetworkModule(@Nullable Proxy proxy) {
+	public NetworkModule(@Nullable Proxy proxy, long timeout, @NonNull TimeUnit timeUnit) {
 		mProxy = proxy;
+		mTimeout = timeout;
+		mTimeUnit = timeUnit;
 	}
 
 	@Provides
@@ -96,18 +96,9 @@ public class NetworkModule {
 			.followSslRedirects(false)
 			.addInterceptor(logging)
 			.addInterceptor(interceptor)
-			.readTimeout(SECONDS_TIMEOUT, TimeUnit.SECONDS)
-			.writeTimeout(SECONDS_TIMEOUT, TimeUnit.SECONDS)
-			.connectTimeout(SECONDS_TIMEOUT, TimeUnit.SECONDS)
+			.readTimeout(mTimeout, mTimeUnit)
+			.writeTimeout(mTimeout, mTimeUnit)
+			.connectTimeout(mTimeout, mTimeUnit)
 			.build();
-	}
-
-	@Provides
-	@Singleton
-	public Retrofit.Builder provideRetrofit(OkHttpClient client, Gson gson) {
-		return new Retrofit.Builder()
-			.client(client)
-			.addConverterFactory(GsonConverterFactory.create(gson))
-			.addCallAdapterFactory(RxJavaCallAdapterFactory.create());
 	}
 }

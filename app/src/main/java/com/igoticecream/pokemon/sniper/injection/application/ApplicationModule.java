@@ -22,12 +22,13 @@ import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
 import com.igoticecream.pokemon.sniper.data.remote.PokeSniperService;
 import com.igoticecream.pokemon.sniper.data.remote.PokeSniperServiceFactory;
 
 import dagger.Module;
 import dagger.Provides;
-import retrofit2.Retrofit;
+import okhttp3.OkHttpClient;
 
 @Module
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
@@ -52,7 +53,7 @@ public final class ApplicationModule {
 
 	@Provides
 	@Singleton
-	public PokeSniperService providePokeSniperService(Retrofit.Builder builder) {
-		return PokeSniperServiceFactory.create(builder);
+	public PokeSniperService providePokeSniperService(OkHttpClient client, Gson gson) {
+		return PokeSniperServiceFactory.create(client, gson);
 	}
 }

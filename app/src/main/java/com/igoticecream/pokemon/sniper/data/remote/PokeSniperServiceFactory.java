@@ -16,7 +16,12 @@
 
 package com.igoticecream.pokemon.sniper.data.remote;
 
+import com.google.gson.Gson;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
 public final class PokeSniperServiceFactory {
@@ -25,9 +30,12 @@ public final class PokeSniperServiceFactory {
 		throw new AssertionError("No instances");
 	}
 
-	public static PokeSniperService create(Retrofit.Builder builder) {
-		return builder
+	public static PokeSniperService create(OkHttpClient client, Gson gson) {
+		return new Retrofit.Builder()
+			.client(client)
 			.baseUrl(PokeSniperService.ENDPOINT)
+			.addConverterFactory(GsonConverterFactory.create(gson))
+			.addCallAdapterFactory(RxJavaCallAdapterFactory.create())
 			.build()
 			.create(PokeSniperService.class);
 	}

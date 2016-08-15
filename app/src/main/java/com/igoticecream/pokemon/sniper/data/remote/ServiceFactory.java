@@ -14,16 +14,24 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.data.util;
+package com.igoticecream.pokemon.sniper.data.remote;
 
-import com.google.gson.TypeAdapterFactory;
-import com.ryanharter.auto.value.gson.GsonTypeAdapterFactory;
+import com.google.gson.Gson;
 
-@GsonTypeAdapterFactory
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public abstract class GsonAdapterFactory implements TypeAdapterFactory {
+public abstract class ServiceFactory {
 
-	public static GsonAdapterFactory create() {
-		return new AutoValueGson_GsonAdapterFactory();
+	protected static Retrofit createRetrofit(OkHttpClient client, Gson gson, String baseUrl) {
+		return new Retrofit.Builder()
+			.client(client)
+			.baseUrl(baseUrl)
+			.addConverterFactory(GsonConverterFactory.create(gson))
+			.addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+			.build();
 	}
 }

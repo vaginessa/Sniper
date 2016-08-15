@@ -16,14 +16,14 @@
 
 package com.igoticecream.pokemon.sniper.data.remote;
 
-import retrofit2.http.GET;
-import rx.Observable;
+import com.google.gson.TypeAdapterFactory;
+import com.ryanharter.auto.value.gson.GsonTypeAdapterFactory;
 
+@GsonTypeAdapterFactory
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public interface PokeSniperService {
+public abstract class GsonAdapterFactory implements TypeAdapterFactory {
 
-	String ENDPOINT = "http://pokesnipers.com/api/v1/";
-
-	@GET("pokemon")
-	Observable<PokeSniperResult> getPokemons();
+	public static GsonAdapterFactory create() {
+		return new AutoValueGson_GsonAdapterFactory();
+	}
 }

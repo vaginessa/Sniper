@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.data.remote;
+package com.igoticecream.pokemon.sniper.data.remote.pokesniper;
 
-import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -27,29 +27,13 @@ import com.google.gson.annotations.SerializedName;
 
 @AutoValue
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public abstract class PokeSniperPokemon {
+public abstract class PokeSniperResult {
 
-	public static TypeAdapter<PokeSniperPokemon> typeAdapter(Gson gson) {
-		return new AutoValue_PokeSniperPokemon.GsonTypeAdapter(gson);
+	public static TypeAdapter<PokeSniperResult> typeAdapter(Gson gson) {
+		return new AutoValue_PokeSniperResult.GsonTypeAdapter(gson);
 	}
 
 	@Nullable
-	@SerializedName("id")
-	public abstract Integer getId();
-
-	@Nullable
-	@SerializedName("name")
-	public abstract String getName();
-
-	@Nullable
-	@SerializedName("coords")
-	public abstract String getCoordinates();
-
-	@Nullable
-	@SerializedName("until")
-	public abstract Date getExpirationDate();
-
-	@Nullable
-	@SerializedName("iv")
-	public abstract Integer getIv();
+	@SerializedName("results")
+	public abstract List<PokeSniperPokemon> getList();
 }

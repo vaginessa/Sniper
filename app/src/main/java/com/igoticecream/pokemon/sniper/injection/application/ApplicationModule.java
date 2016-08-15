@@ -23,8 +23,10 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
-import com.igoticecream.pokemon.sniper.data.remote.PokeSniperService;
-import com.igoticecream.pokemon.sniper.data.remote.PokeSniperServiceFactory;
+import com.igoticecream.pokemon.sniper.data.remote.pokesniper.PokeSniperService;
+import com.igoticecream.pokemon.sniper.data.remote.pokesniper.PokeSniperServiceFactory;
+import com.igoticecream.pokemon.sniper.data.remote.skiplagged.SkipLaggedService;
+import com.igoticecream.pokemon.sniper.data.remote.skiplagged.SkipLaggedServiceFactory;
 
 import dagger.Module;
 import dagger.Provides;
@@ -55,5 +57,11 @@ public final class ApplicationModule {
 	@Singleton
 	public PokeSniperService providePokeSniperService(OkHttpClient client, Gson gson) {
 		return PokeSniperServiceFactory.create(client, gson);
+	}
+
+	@Provides
+	@Singleton
+	public SkipLaggedService provideSkipLaggedService(OkHttpClient client, Gson gson) {
+		return SkipLaggedServiceFactory.create(client, gson);
 	}
 }

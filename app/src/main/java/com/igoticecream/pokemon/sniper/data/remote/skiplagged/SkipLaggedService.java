@@ -14,26 +14,10 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.data.remote;
+package com.igoticecream.pokemon.sniper.data.remote.skiplagged;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
-import com.google.auto.value.AutoValue;
-import com.google.gson.Gson;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.SerializedName;
-
-@AutoValue
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public abstract class PokeSniperResult {
+public interface SkipLaggedService {
 
-	public static TypeAdapter<PokeSniperResult> typeAdapter(Gson gson) {
-		return new AutoValue_PokeSniperResult.GsonTypeAdapter(gson);
-	}
-
-	@Nullable
-	@SerializedName("results")
-	public abstract List<PokeSniperPokemon> getList();
+	String ENDPOINT = "http://skiplagged.com/api/";
 }

@@ -14,27 +14,23 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper;
+package com.igoticecream.pokemon.sniper.presentation;
 
-import android.app.Application;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import com.igoticecream.pokemon.sniper.R;
 
 import timber.log.Timber;
-import timber.log.Timber.DebugTree;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public class SniperApp extends Application {
+public class HomeActivity extends AppCompatActivity {
 
 	@Override
-	public void onCreate() {
-		super.onCreate();
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_home);
 
-		if (BuildConfig.DEBUG) {
-			Timber.plant(new DebugTree() {
-				@Override
-				protected String createStackElementTag(StackTraceElement element) {
-					return super.createStackElementTag(element) + ":" + element.getLineNumber();
-				}
-			});
-		}
+		Timber.d("Hello");
 	}
 }

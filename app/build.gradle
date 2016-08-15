@@ -61,11 +61,14 @@ android {
         }
     }
     lintOptions {
+        textReport true
         showAll true
         abortOnError true
         explainIssues true
         checkAllWarnings true
         warningsAsErrors true
+
+        textOutput 'stdout'
 
         disable 'AllowBackup',
                 'GoogleAppIndexingWarning',
@@ -89,6 +92,7 @@ android {
 dependencies {
     compile libraries.supportLib
     compile libraries.rxJava
+    compile libraries.timber
 
     provided libraries.jsr305
 }

@@ -27,6 +27,7 @@ import android.support.annotation.Nullable;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.ryanharter.auto.value.gson.AutoValueGsonTypeAdapterFactory;
 
 import dagger.Module;
 import dagger.Provides;
@@ -34,6 +35,9 @@ import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
 @Module
@@ -76,7 +80,7 @@ public class NetworkModule {
 	@Singleton
 	public Gson provideGson() {
 		return new GsonBuilder()
-			//.registerTypeAdapterFactory(new AutoValueGsonTypeAdapterFactory())
+			.registerTypeAdapterFactory(new AutoValueGsonTypeAdapterFactory())
 			.setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 			.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
 			.create();
@@ -96,5 +100,14 @@ public class NetworkModule {
 			.writeTimeout(SECONDS_TIMEOUT, TimeUnit.SECONDS)
 			.connectTimeout(SECONDS_TIMEOUT, TimeUnit.SECONDS)
 			.build();
+	}
+
+	@Provides
+	@Singleton
+	public Retrofit.Builder provideRetrofit(OkHttpClient client, Gson gson) {
+		return new Retrofit.Builder()
+			.client(client)
+			.addConverterFactory(GsonConverterFactory.create(gson))
+			.addCallAdapterFactory(RxJavaCallAdapterFactory.create());
 	}
 }

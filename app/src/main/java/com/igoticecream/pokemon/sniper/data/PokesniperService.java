@@ -16,8 +16,6 @@
 
 package com.igoticecream.pokemon.sniper.data;
 
-import java.util.List;
-
 import retrofit2.http.GET;
 import rx.Observable;
 
@@ -27,5 +25,5 @@ public interface PokeSniperService {
 	String ENDPOINT = "http://pokesnipers.com/api/v1/";
 
 	@GET("pokemon")
-	Observable<List<Object>> getPokemons();
+	Observable<PokeSniperResult> getPokemons();
 }

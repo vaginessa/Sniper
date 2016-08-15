@@ -21,7 +21,12 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.igoticecream.pokemon.sniper.R;
 import com.igoticecream.pokemon.sniper.SniperApp;
+import com.igoticecream.pokemon.sniper.data.PokeSniperResult;
 import com.igoticecream.pokemon.sniper.injection.application.ApplicationComponent;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
 public class HomeActivity extends AppCompatActivity {
@@ -33,6 +38,13 @@ public class HomeActivity extends AppCompatActivity {
 
 		ApplicationComponent component = SniperApp.get(this).getComponent();
 
-		component.getPokeSniperService();
+		component
+			.getPokeSniperService()
+			.getPokemons()
+			.map(PokeSniperResult::getList)
+			.flatMapIterable(pokemons -> pokemons)
+			.subscribeOn(Schedulers.io())
+			.observeOn(AndroidSchedulers.mainThread())
+			.subscribe(pokemon -> Timber.d(pokemon.toString()));
 	}
 }

@@ -83,12 +83,12 @@ android {
         sourceCompatibility config.sourceCompatibilityVersion
         targetCompatibility config.targetCompatibilityVersion
     }
-    packagingOptions {
-        exclude 'META-INF/rxjava.properties'
-    }
 }
 
 dependencies {
+    apt libraries.javapoet
+    provided libraries.jsr305
+
     compile libraries.supportLib
     compile libraries.timber
 
@@ -99,20 +99,18 @@ dependencies {
     compile libraries.okHttp
     compile libraries.retrofit
 
-    compile libraries.dagger
-    apt libraries.daggerCompiler
-    provided libraries.jsr250
-
-    provided libraries.jsr305
-
     apt libraries.autoValue
     apt libraries.autoValueGson
     provided libraries.autoValueAnnotations
+
+    compile libraries.dagger
+    apt libraries.daggerCompiler
+    provided libraries.jsr250
 }
 
 tasks.withType(Test) {
     testLogging {
-        exceptionFormat "full"
+        exceptionFormat 'full'
         showCauses true
         showExceptions true
         showStackTraces true

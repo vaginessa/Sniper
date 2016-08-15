@@ -16,19 +16,24 @@
 
 package com.igoticecream.pokemon.sniper.data;
 
-import retrofit2.Retrofit;
+import java.util.List;
 
+import javax.annotation.Nullable;
+
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.SerializedName;
+
+@AutoValue
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public final class PokeSniperServiceFactory {
+public abstract class PokeSniperResult {
 
-	private PokeSniperServiceFactory() {
-		throw new AssertionError("No instances");
+	public static TypeAdapter<PokeSniperResult> typeAdapter(Gson gson) {
+		return new AutoValue_PokeSniperResult.GsonTypeAdapter(gson);
 	}
 
-	public static PokeSniperService create(Retrofit.Builder builder) {
-		return builder
-			.baseUrl(PokeSniperService.ENDPOINT)
-			.build()
-			.create(PokeSniperService.class);
-	}
+	@Nullable
+	@SerializedName("results")
+	public abstract List<PokeSniperPokemon> getList();
 }

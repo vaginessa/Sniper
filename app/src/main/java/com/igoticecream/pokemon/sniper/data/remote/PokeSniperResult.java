@@ -14,16 +14,26 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.data;
+package com.igoticecream.pokemon.sniper.data.remote;
 
-import retrofit2.http.GET;
-import rx.Observable;
+import java.util.List;
 
+import javax.annotation.Nullable;
+
+import com.google.auto.value.AutoValue;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.SerializedName;
+
+@AutoValue
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public interface PokeSniperService {
+public abstract class PokeSniperResult {
 
-	String ENDPOINT = "http://pokesnipers.com/api/v1/";
+	public static TypeAdapter<PokeSniperResult> typeAdapter(Gson gson) {
+		return new AutoValue_PokeSniperResult.GsonTypeAdapter(gson);
+	}
 
-	@GET("pokemon")
-	Observable<PokeSniperResult> getPokemons();
+	@Nullable
+	@SerializedName("results")
+	public abstract List<PokeSniperPokemon> getList();
 }

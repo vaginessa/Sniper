@@ -22,8 +22,8 @@ import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.igoticecream.pokemon.sniper.data.PokeSniperService;
-import com.igoticecream.pokemon.sniper.data.PokeSniperServiceFactory;
+import com.igoticecream.pokemon.sniper.data.remote.PokeSniperService;
+import com.igoticecream.pokemon.sniper.data.remote.PokeSniperServiceFactory;
 
 import dagger.Module;
 import dagger.Provides;

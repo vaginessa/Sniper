@@ -21,7 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.igoticecream.pokemon.sniper.R;
 import com.igoticecream.pokemon.sniper.SniperApp;
-import com.igoticecream.pokemon.sniper.data.PokeSniperResult;
+import com.igoticecream.pokemon.sniper.data.remote.PokeSniperResult;
 import com.igoticecream.pokemon.sniper.injection.application.ApplicationComponent;
 
 import rx.android.schedulers.AndroidSchedulers;

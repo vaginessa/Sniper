@@ -14,24 +14,16 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.injection.application;
+package com.igoticecream.pokemon.sniper.data.remote;
 
-import javax.inject.Singleton;
+import retrofit2.http.GET;
+import rx.Observable;
 
-import android.content.Context;
-
-import com.igoticecream.pokemon.sniper.data.remote.PokeSniperService;
-import com.igoticecream.pokemon.sniper.injection.network.NetworkModule;
-
-import dagger.Component;
-
-@Singleton
-@Component(modules = {ApplicationModule.class, NetworkModule.class})
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public interface ApplicationComponent {
+public interface PokeSniperService {
 
-	@ApplicationContext
-	Context getContext();
+	String ENDPOINT = "http://pokesnipers.com/api/v1/";
 
-	PokeSniperService getPokeSniperService();
+	@GET("pokemon")
+	Observable<PokeSniperResult> getPokemons();
 }

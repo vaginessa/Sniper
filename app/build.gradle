@@ -101,6 +101,7 @@ dependencies {
 
     apt libraries.autoValue
     apt libraries.autoValueGson
+    provided libraries.autoValueGson
     provided libraries.autoValueAnnotations
 
     compile libraries.dagger

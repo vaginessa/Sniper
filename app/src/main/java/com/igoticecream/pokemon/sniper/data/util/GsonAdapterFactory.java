@@ -14,26 +14,16 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.data;
+package com.igoticecream.pokemon.sniper.data.util;
 
-import java.util.List;
+import com.google.gson.TypeAdapterFactory;
+import com.ryanharter.auto.value.gson.GsonTypeAdapterFactory;
 
-import javax.annotation.Nullable;
-
-import com.google.auto.value.AutoValue;
-import com.google.gson.Gson;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.SerializedName;
-
-@AutoValue
+@GsonTypeAdapterFactory
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public abstract class PokeSniperResult {
+public abstract class GsonAdapterFactory implements TypeAdapterFactory {
 
-	public static TypeAdapter<PokeSniperResult> typeAdapter(Gson gson) {
-		return new AutoValue_PokeSniperResult.GsonTypeAdapter(gson);
+	public static GsonAdapterFactory create() {
+		return new AutoValueGson_GsonAdapterFactory();
 	}
-
-	@Nullable
-	@SerializedName("results")
-	public abstract List<PokeSniperPokemon> getList();
 }

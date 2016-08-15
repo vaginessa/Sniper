@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-package com.icecream.pokemon.sniper.common;
+package com.igoticecream.pokemon.sniper.common;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import static com.igoticecream.pokemon.sniper.common.Preconditions.checkNotNull;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
 public final class Strings {
 
 	public static final String EMPTY = "";
-	public static final String DOT   = ".";
+	public static final String DOT = ".";
 	public static final String COLON = ":";
 	public static final String SPACE = " ";
 
@@ -49,12 +51,12 @@ public final class Strings {
 	}
 
 	public static String truncateAt(@Nonnull String string, int length) {
-		Preconditions.checkNotNull(string);
+		checkNotNull(string);
 		return (string.length() > length) ? string.substring(0, length) : string;
 	}
 
 	public static String padEnd(@Nonnull String string, int minLength, char padChar) {
-		Preconditions.checkNotNull(string);
+		checkNotNull(string);
 
 		if (string.length() >= minLength) {
 			return string;
@@ -68,7 +70,7 @@ public final class Strings {
 	}
 
 	public static String padStart(@Nonnull String string, int minLength, char padChar) {
-		Preconditions.checkNotNull(string);
+		checkNotNull(string);
 
 		if (string.length() >= minLength) {
 			return string;

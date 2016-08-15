@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.icecream.pokemon.sniper.common;
+package com.igoticecream.pokemon.sniper.common;
 
 import javax.annotation.Nullable;
 

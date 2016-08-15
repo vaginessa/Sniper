@@ -68,7 +68,8 @@ android {
         warningsAsErrors true
 
         disable 'AllowBackup',
-                'GoogleAppIndexingWarning'
+                'GoogleAppIndexingWarning',
+                'UnusedResources'
     }
     dexOptions {
         maxProcessCount 4

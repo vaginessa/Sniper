@@ -14,21 +14,26 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.data.remote.pokesniper;
+package com.igoticecream.pokemon.sniper.data.executor;
 
-import com.google.gson.Gson;
-import com.igoticecream.pokemon.sniper.data.remote.ServiceFactory;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
-import okhttp3.OkHttpClient;
+import com.igoticecream.pokemon.sniper.domain.executor.ExecutorThread;
 
+import rx.Scheduler;
+import rx.schedulers.Schedulers;
+
+@Singleton
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public final class PokeSniperServiceFactory extends ServiceFactory {
+public final class IoThread implements ExecutorThread {
 
-	private PokeSniperServiceFactory() {
-		throw new AssertionError("No instances");
+	@Inject
+	public IoThread() {
 	}
 
-	public static PokeSniperService create(OkHttpClient client, Gson gson) {
-		return createRetrofit(client, gson, PokeSniperService.ENDPOINT).create(PokeSniperService.class);
+	@Override
+	public Scheduler getScheduler() {
+		return Schedulers.io();
 	}
 }

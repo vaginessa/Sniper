@@ -14,19 +14,26 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.injection.application;
+package com.igoticecream.pokemon.sniper.presentation.executor;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import com.igoticecream.pokemon.sniper.injection.network.NetworkModule;
-import com.igoticecream.pokemon.sniper.presentation.HomeActivity;
+import com.igoticecream.pokemon.sniper.domain.executor.PostExecutionThread;
 
-import dagger.Component;
+import rx.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
 
 @Singleton
-@Component(modules = {ApplicationModule.class, NetworkModule.class})
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public interface ApplicationComponent {
-	// TODO testing purpose
-	void inject(HomeActivity activity);
+public final class UiThread implements PostExecutionThread {
+
+	@Inject
+	public UiThread() {
+	}
+
+	@Override
+	public Scheduler getScheduler() {
+		return AndroidSchedulers.mainThread();
+	}
 }

@@ -14,26 +14,32 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.data.remote.pokesniper;
+package com.igoticecream.pokemon.sniper.data.mapper;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nullable;
 
-import com.google.auto.value.AutoValue;
-import com.google.gson.Gson;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.SerializedName;
-
-@AutoValue
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public abstract class PokeSniperResult {
+public abstract class Mapper<F, T> {
 
-	public static TypeAdapter<PokeSniperResult> typeAdapter(Gson gson) {
-		return new AutoValue_PokeSniperResult.GsonTypeAdapter(gson);
+	public abstract T transform(F from);
+
+	public List<T> transform(Collection<F> from) {
+		if (com.igoticecream.pokemon.sniper.common.Lists.isEmptyOrNull(from)) {
+			return Collections.emptyList();
+		}
+
+		List<T> output = new ArrayList<>(from.size());
+
+		for (F entity : from) {
+			T to = transform(entity);
+			if (to != null) {
+				output.add(to);
+			}
+		}
+		return output;
 	}
-
-	@Nullable
-	@SerializedName("results")
-	public abstract List<PokeSniperPokemon> getList();
 }

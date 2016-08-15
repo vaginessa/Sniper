@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.data.remote.skiplagged;
+package com.igoticecream.pokemon.sniper.common.rx;
 
-import com.google.gson.Gson;
-import com.igoticecream.pokemon.sniper.data.remote.ServiceFactory;
+import javax.annotation.Nonnull;
 
-import okhttp3.OkHttpClient;
+import rx.Observable;
+import rx.Scheduler;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public final class SkipLaggedServiceFactory extends ServiceFactory {
+public final class RxFunctions {
 
-	private SkipLaggedServiceFactory() {
-		throw new AssertionError("No instances");
+	public static <T> Observable.Transformer<T, T> applySchedulers(@Nonnull Scheduler executor, @Nonnull Scheduler postExecution) {
+		return observable -> observable.subscribeOn(executor).observeOn(postExecution);
 	}
 
-	public static SkipLaggedService create(OkHttpClient client, Gson gson) {
-		return createRetrofit(client, gson, SkipLaggedService.ENDPOINT).create(SkipLaggedService.class);
+	private RxFunctions() {
+		throw new AssertionError("No instances");
 	}
 }

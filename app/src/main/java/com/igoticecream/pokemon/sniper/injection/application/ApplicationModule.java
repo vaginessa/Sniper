@@ -23,10 +23,16 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
-import com.igoticecream.pokemon.sniper.data.remote.pokesniper.PokeSniperService;
-import com.igoticecream.pokemon.sniper.data.remote.pokesniper.PokeSniperServiceFactory;
-import com.igoticecream.pokemon.sniper.data.remote.skiplagged.SkipLaggedService;
-import com.igoticecream.pokemon.sniper.data.remote.skiplagged.SkipLaggedServiceFactory;
+import com.igoticecream.pokemon.sniper.data.executor.IoThread;
+import com.igoticecream.pokemon.sniper.data.remote.pokemon.PokemonDataRepository;
+import com.igoticecream.pokemon.sniper.data.remote.pokemon.pokesniper.PokeSniperService;
+import com.igoticecream.pokemon.sniper.data.remote.pokemon.pokesniper.PokeSniperServiceFactory;
+import com.igoticecream.pokemon.sniper.data.remote.pokemon.skiplagged.SkipLaggedService;
+import com.igoticecream.pokemon.sniper.data.remote.pokemon.skiplagged.SkipLaggedServiceFactory;
+import com.igoticecream.pokemon.sniper.domain.executor.ExecutorThread;
+import com.igoticecream.pokemon.sniper.domain.executor.PostExecutionThread;
+import com.igoticecream.pokemon.sniper.domain.feature.pokemon.PokemonRepository;
+import com.igoticecream.pokemon.sniper.presentation.executor.UiThread;
 
 import dagger.Module;
 import dagger.Provides;
@@ -63,5 +69,23 @@ public final class ApplicationModule {
 	@Singleton
 	public SkipLaggedService provideSkipLaggedService(OkHttpClient client, Gson gson) {
 		return SkipLaggedServiceFactory.create(client, gson);
+	}
+
+	@Provides
+	@Singleton
+	public PokemonRepository providePokemonRepository(PokemonDataRepository repository) {
+		return repository;
+	}
+
+	@Provides
+	@Singleton
+	public ExecutorThread provideExecutorThread(IoThread thread) {
+		return thread;
+	}
+
+	@Provides
+	@Singleton
+	public PostExecutionThread providePostExecutionThread(UiThread thread) {
+		return thread;
 	}
 }

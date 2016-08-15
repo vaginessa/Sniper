@@ -14,19 +14,25 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.injection.application;
+package com.igoticecream.pokemon.sniper.domain.feature;
 
-import javax.inject.Singleton;
+import javax.annotation.Nonnull;
 
-import com.igoticecream.pokemon.sniper.injection.network.NetworkModule;
-import com.igoticecream.pokemon.sniper.presentation.HomeActivity;
+import com.igoticecream.pokemon.sniper.domain.executor.ExecutorThread;
+import com.igoticecream.pokemon.sniper.domain.executor.PostExecutionThread;
 
-import dagger.Component;
+import rx.Observable;
 
-@Singleton
-@Component(modules = {ApplicationModule.class, NetworkModule.class})
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public interface ApplicationComponent {
-	// TODO testing purpose
-	void inject(HomeActivity activity);
+public abstract class Feature {
+
+	protected final ExecutorThread mExecutorThread;
+	protected final PostExecutionThread mPostExecutionThread;
+
+	protected Feature(@Nonnull ExecutorThread executorThread, @Nonnull PostExecutionThread postExecutionThread) {
+		mExecutorThread = executorThread;
+		mPostExecutionThread = postExecutionThread;
+	}
+
+	public abstract Observable<?> execute();
 }

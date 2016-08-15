@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.injection.application;
+package com.igoticecream.pokemon.sniper.data.remote.pokemon.pokesniper;
 
-import javax.inject.Singleton;
+import com.google.gson.Gson;
+import com.igoticecream.pokemon.sniper.data.remote.ServiceFactory;
 
-import com.igoticecream.pokemon.sniper.injection.network.NetworkModule;
-import com.igoticecream.pokemon.sniper.presentation.HomeActivity;
+import okhttp3.OkHttpClient;
 
-import dagger.Component;
-
-@Singleton
-@Component(modules = {ApplicationModule.class, NetworkModule.class})
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public interface ApplicationComponent {
-	// TODO testing purpose
-	void inject(HomeActivity activity);
+public final class PokeSniperServiceFactory extends ServiceFactory {
+
+	private PokeSniperServiceFactory() {
+		throw new AssertionError("No instances");
+	}
+
+	public static PokeSniperService create(OkHttpClient client, Gson gson) {
+		return createRetrofit(client, gson, PokeSniperService.ENDPOINT).create(PokeSniperService.class);
+	}
 }

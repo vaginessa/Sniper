@@ -14,19 +14,12 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.injection.application;
+package com.igoticecream.pokemon.sniper.domain.feature.pokemon;
 
-import javax.inject.Singleton;
+import rx.Observable;
 
-import com.igoticecream.pokemon.sniper.injection.network.NetworkModule;
-import com.igoticecream.pokemon.sniper.presentation.HomeActivity;
-
-import dagger.Component;
-
-@Singleton
-@Component(modules = {ApplicationModule.class, NetworkModule.class})
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public interface ApplicationComponent {
-	// TODO testing purpose
-	void inject(HomeActivity activity);
+public interface PokemonRepository {
+
+	Observable<Pokemon> getPokemon();
 }

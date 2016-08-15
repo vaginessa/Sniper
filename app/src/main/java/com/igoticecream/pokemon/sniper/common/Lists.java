@@ -14,10 +14,20 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.data.remote.skiplagged;
+package com.igoticecream.pokemon.sniper.common;
+
+import java.util.Collection;
+
+import javax.annotation.Nullable;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public interface SkipLaggedService {
+public final class Lists {
 
-	String ENDPOINT = "http://skiplagged.com/api/";
+	public static <T> boolean isEmptyOrNull(@Nullable Collection<T> list) {
+		return list == null || list.isEmpty();
+	}
+
+	private Lists() {
+		throw new AssertionError("No instances");
+	}
 }

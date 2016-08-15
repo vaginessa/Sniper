@@ -1,0 +1,30 @@
+apply from: "${rootDir}/buildscript/version.gradle"
+
+ext {
+    config = [
+            name                      : 'Sniper',
+            desc                      : 'To catch them all',
+
+            package                   : 'com.igoticecream.pokemon.sniper',
+            minSdkVersion             : 16,
+            versionCode               : version.count,
+            versionName               : version.tag,
+
+            packageDev                : 'com.igoticecream.pokemon.sniper.dev',
+            minSdkVersionDev          : 23,
+            versionCodeDev            : 1,
+            versionNameDev            : '1.0',
+
+            buildToolsVersion         : '24.0.1',
+            compileSdkVersion         : 24,
+            targetSdkVersion          : 24,
+            sourceCompatibilityVersion: JavaVersion.VERSION_1_8,
+            targetCompatibilityVersion: JavaVersion.VERSION_1_8,
+
+            commit                    : version.commit,
+            date                      : new Date(),
+
+            predex                    : true,
+            ci                        : System.getenv("CI").equals("true")
+    ]
+}

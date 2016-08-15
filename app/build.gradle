@@ -1,0 +1,103 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
+
+apply from: "${rootDir}/buildscript/signing/sign.gradle"
+
+android {
+    compileSdkVersion config.compileSdkVersion
+    buildToolsVersion config.buildToolsVersion
+
+    defaultConfig {
+        targetSdkVersion config.targetSdkVersion
+
+        resConfig 'en'
+        resValue 'string', 'app_name', config.name
+
+        buildConfigField 'String', 'GIT_COMMIT', "\"${config.commit}\""
+        buildConfigField 'java.util.Date', 'BUILD_TIME', "new java.util.Date(${config.date.time}L)"
+
+        archivesBaseName = config.name.toLowerCase()
+    }
+    productFlavors {
+        dev {
+            applicationId config.packageDev
+            minSdkVersion config.minSdkVersionDev
+
+            versionCode config.versionCodeDev
+            versionName config.versionNameDev
+
+            buildConfigField 'boolean', 'PROD', 'false'
+
+            multiDexEnabled true
+        }
+        prod {
+            applicationId config.package
+            minSdkVersion config.minSdkVersion
+
+            versionCode config.versionCode
+            versionName config.versionName
+
+            buildConfigField 'boolean', 'PROD', 'true'
+
+            vectorDrawables.useSupportLibrary true
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.sniper
+
+            useProguard false
+            minifyEnabled false
+            shrinkResources false
+        }
+        release {
+            signingConfig signingConfigs.sniper
+
+            useProguard true
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        showAll true
+        abortOnError true
+        explainIssues true
+        checkAllWarnings true
+        warningsAsErrors true
+
+        disable 'AllowBackup',
+                'GoogleAppIndexingWarning'
+    }
+    dexOptions {
+        maxProcessCount 4
+        dexInProcess true
+        preDexLibraries config.predex && !config.ci
+        javaMaxHeapSize '4g'
+    }
+    compileOptions {
+        sourceCompatibility config.sourceCompatibilityVersion
+        targetCompatibility config.targetCompatibilityVersion
+    }
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+}
+
+dependencies {
+    compile libraries.supportLib
+    compile libraries.constraintLayout
+    compile libraries.rxJava
+}
+
+tasks.withType(Test) {
+    testLogging {
+        exceptionFormat "full"
+        showCauses true
+        showExceptions true
+        showStackTraces true
+        showStandardStreams true
+        events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+    }
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+
+	<style name="SniperTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+		<item name="colorPrimary">@color/blue_grey_900</item>
+		<item name="colorPrimaryDark">@color/blue_grey_800</item>
+		<item name="colorAccent">@color/teal_500</item>
+	</style>
+
+</resources>

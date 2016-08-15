@@ -1,0 +1,11 @@
+# Folders
+.gradle
+.idea
+build
+buildscript/signing/*
+
+# Files
+*.iml
+local.properties
+!buildscript/signing/sign.gradle
+!buildscript/signing/debug.keystore

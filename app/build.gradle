@@ -87,7 +87,6 @@ android {
 
 dependencies {
     compile libraries.supportLib
-    compile libraries.constraintLayout
     compile libraries.rxJava
 }
 

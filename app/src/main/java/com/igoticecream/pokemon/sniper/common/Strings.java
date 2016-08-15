@@ -29,14 +29,6 @@ public final class Strings {
 	public static final String COLON = ":";
 	public static final String SPACE = " ";
 
-	private Strings() {
-		throw new AssertionError("No instances");
-	}
-
-	public static boolean isNullOrEmpty(@Nullable String string) {
-		return string == null || string.trim().length() == 0;
-	}
-
 	public static String nullToEmpty(@Nullable String string) {
 		return (string == null) ? EMPTY : string;
 	}
@@ -44,6 +36,10 @@ public final class Strings {
 	@Nullable
 	public static String emptyToNull(@Nullable String string) {
 		return isNullOrEmpty(string) ? null : string;
+	}
+
+	public static boolean isNullOrEmpty(@Nullable String string) {
+		return string == null || string.trim().length() == 0;
 	}
 
 	public static String valueOrDefault(@Nullable String string, String defaultString) {
@@ -81,5 +77,9 @@ public final class Strings {
 		}
 		sb.append(string);
 		return sb.toString();
+	}
+
+	private Strings() {
+		throw new AssertionError("No instances");
 	}
 }

@@ -21,10 +21,6 @@ import javax.annotation.Nullable;
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
 public final class Preconditions {
 
-	private Preconditions() {
-		throw new AssertionError("No instances");
-	}
-
 	public static void checkArgument(boolean expression) {
 		if (!expression) {
 			throw new IllegalArgumentException();
@@ -62,5 +58,9 @@ public final class Preconditions {
 			throw new NullPointerException(String.format(String.valueOf(errorMessageTemplate), errorMessageArgs));
 		}
 		return reference;
+	}
+
+	private Preconditions() {
+		throw new AssertionError("No instances");
 	}
 }

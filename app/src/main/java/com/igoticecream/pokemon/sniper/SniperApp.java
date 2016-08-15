@@ -16,14 +16,26 @@
 
 package com.igoticecream.pokemon.sniper;
 
+import javax.annotation.Nonnull;
+
 import android.app.Application;
+import android.content.Context;
 
 import com.igoticecream.pokemon.sniper.common.logging.DebugTree;
+import com.igoticecream.pokemon.sniper.injection.ApplicationComponent;
+import com.igoticecream.pokemon.sniper.injection.ApplicationModule;
+import com.igoticecream.pokemon.sniper.injection.DaggerApplicationComponent;
 
 import timber.log.Timber;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
 public class SniperApp extends Application {
+
+	public static SniperApp get(@Nonnull Context context) {
+		return (SniperApp) context.getApplicationContext();
+	}
+
+	private ApplicationComponent mApplicationComponent;
 
 	@Override
 	public void onCreate() {
@@ -32,5 +44,14 @@ public class SniperApp extends Application {
 		if (BuildConfig.DEBUG) {
 			Timber.plant(DebugTree.create());
 		}
+	}
+
+	public ApplicationComponent getComponent() {
+		if (mApplicationComponent == null) {
+			mApplicationComponent = DaggerApplicationComponent.builder()
+				.applicationModule(new ApplicationModule(this))
+				.build();
+		}
+		return mApplicationComponent;
 	}
 }

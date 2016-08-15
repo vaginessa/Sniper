@@ -89,6 +89,8 @@ android {
 dependencies {
     compile libraries.supportLib
     compile libraries.rxJava
+
+    provided libraries.jsr305
 }
 
 tasks.withType(Test) {

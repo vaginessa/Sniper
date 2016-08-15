@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper;
-
-import android.app.Application;
-
-import com.igoticecream.pokemon.sniper.common.logging.DebugTree;
+package com.igoticecream.pokemon.sniper.common.logging;
 
 import timber.log.Timber;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public class SniperApp extends Application {
+public final class DebugTree extends Timber.DebugTree {
+
+	public static Timber.Tree create() {
+		return new DebugTree();
+	}
+
+	private DebugTree() {
+	}
 
 	@Override
-	public void onCreate() {
-		super.onCreate();
-
-		if (BuildConfig.DEBUG) {
-			Timber.plant(DebugTree.create());
-		}
+	protected String createStackElementTag(StackTraceElement element) {
+		return super.createStackElementTag(element) + ":" + element.getLineNumber();
 	}
 }

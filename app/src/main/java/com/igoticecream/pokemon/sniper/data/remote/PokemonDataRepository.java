@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.data.remote.pokemon;
+package com.igoticecream.pokemon.sniper.data.remote;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import com.igoticecream.pokemon.sniper.data.remote.pokemon.pokesniper.PokeSniperEntity;
-import com.igoticecream.pokemon.sniper.data.remote.pokemon.pokesniper.PokeSniperEntityMapper;
-import com.igoticecream.pokemon.sniper.data.remote.pokemon.pokesniper.PokeSniperService;
+import com.igoticecream.pokemon.sniper.data.remote.pokesniper.PokeSniperEntity;
+import com.igoticecream.pokemon.sniper.data.remote.pokesniper.PokeSniperEntityMapper;
+import com.igoticecream.pokemon.sniper.data.remote.pokesniper.PokeSniperService;
+import com.igoticecream.pokemon.sniper.data.remote.skiplagged.SkipLaggedService;
 import com.igoticecream.pokemon.sniper.domain.feature.pokemon.Pokemon;
 import com.igoticecream.pokemon.sniper.domain.feature.pokemon.PokemonRepository;
 
@@ -32,11 +33,13 @@ import rx.Observable;
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
 public final class PokemonDataRepository implements PokemonRepository {
 
+	private final SkipLaggedService mSkipLaggedService;
 	private final PokeSniperService mPokeSniperService;
 	private final PokeSniperEntityMapper mPokeSniperEntityMapper;
 
 	@Inject
-	public PokemonDataRepository(@Nonnull PokeSniperService service, @Nonnull PokeSniperEntityMapper mapper) {
+	public PokemonDataRepository(SkipLaggedService skipLaggedService, @Nonnull PokeSniperService service, @Nonnull PokeSniperEntityMapper mapper) {
+		mSkipLaggedService = skipLaggedService;
 		mPokeSniperService = service;
 		mPokeSniperEntityMapper = mapper;
 	}

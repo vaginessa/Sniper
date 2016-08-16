@@ -14,26 +14,17 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.data.executor;
+package com.igoticecream.pokemon.sniper.common.gson;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import com.google.gson.TypeAdapterFactory;
+import com.igoticecream.pokemon.sniper.data.remote.AutoValueGson_GsonAdapterFactory;
+import com.ryanharter.auto.value.gson.GsonTypeAdapterFactory;
 
-import com.igoticecream.pokemon.sniper.domain.executor.ExecutorThread;
-
-import rx.Scheduler;
-import rx.schedulers.Schedulers;
-
-@Singleton
+@GsonTypeAdapterFactory
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public final class IoThread implements ExecutorThread {
+public abstract class GsonAdapterFactory implements TypeAdapterFactory {
 
-	@Inject
-	public IoThread() {
-	}
-
-	@Override
-	public Scheduler getScheduler() {
-		return Schedulers.io();
+	public static GsonAdapterFactory create() {
+		return new AutoValueGson_GsonAdapterFactory();
 	}
 }

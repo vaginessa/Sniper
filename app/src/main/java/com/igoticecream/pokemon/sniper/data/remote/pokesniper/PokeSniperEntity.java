@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.data.remote.pokemon.pokesniper;
+package com.igoticecream.pokemon.sniper.data.remote.pokesniper;
 
 import java.util.Date;
 import java.util.List;

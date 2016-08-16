@@ -14,21 +14,26 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.data.remote.pokemon.skiplagged;
+package com.igoticecream.pokemon.sniper.presentation.executor;
 
-import com.google.gson.Gson;
-import com.igoticecream.pokemon.sniper.data.remote.ServiceFactory;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
-import okhttp3.OkHttpClient;
+import com.igoticecream.pokemon.sniper.domain.executor.ExecutorThread;
 
+import rx.Scheduler;
+import rx.schedulers.Schedulers;
+
+@Singleton
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public final class SkipLaggedServiceFactory extends ServiceFactory {
+public final class IoThread implements ExecutorThread {
 
-	private SkipLaggedServiceFactory() {
-		throw new AssertionError("No instances");
+	@Inject
+	public IoThread() {
 	}
 
-	public static SkipLaggedService create(OkHttpClient client, Gson gson) {
-		return createRetrofit(client, gson, SkipLaggedService.ENDPOINT).create(SkipLaggedService.class);
+	@Override
+	public Scheduler getScheduler() {
+		return Schedulers.io();
 	}
 }

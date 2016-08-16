@@ -23,12 +23,12 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
-import com.igoticecream.pokemon.sniper.data.executor.IoThread;
-import com.igoticecream.pokemon.sniper.data.remote.pokemon.PokemonDataRepository;
-import com.igoticecream.pokemon.sniper.data.remote.pokemon.pokesniper.PokeSniperService;
-import com.igoticecream.pokemon.sniper.data.remote.pokemon.pokesniper.PokeSniperServiceFactory;
-import com.igoticecream.pokemon.sniper.data.remote.pokemon.skiplagged.SkipLaggedService;
-import com.igoticecream.pokemon.sniper.data.remote.pokemon.skiplagged.SkipLaggedServiceFactory;
+import com.igoticecream.pokemon.sniper.presentation.executor.IoThread;
+import com.igoticecream.pokemon.sniper.data.remote.PokemonDataRepository;
+import com.igoticecream.pokemon.sniper.data.remote.pokesniper.PokeSniperService;
+import com.igoticecream.pokemon.sniper.data.remote.pokesniper.PokeSniperServiceFactory;
+import com.igoticecream.pokemon.sniper.data.remote.skiplagged.SkipLaggedService;
+import com.igoticecream.pokemon.sniper.data.remote.skiplagged.SkipLaggedServiceFactory;
 import com.igoticecream.pokemon.sniper.domain.executor.ExecutorThread;
 import com.igoticecream.pokemon.sniper.domain.executor.PostExecutionThread;
 import com.igoticecream.pokemon.sniper.domain.feature.pokemon.PokemonRepository;

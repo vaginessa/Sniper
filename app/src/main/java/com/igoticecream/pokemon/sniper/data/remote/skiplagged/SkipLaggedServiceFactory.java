@@ -14,16 +14,21 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.data.remote.pokemon.pokesniper;
+package com.igoticecream.pokemon.sniper.data.remote.skiplagged;
 
-import retrofit2.http.GET;
-import rx.Observable;
+import com.google.gson.Gson;
+import com.igoticecream.pokemon.sniper.data.remote.ServiceFactory;
+
+import okhttp3.OkHttpClient;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public interface PokeSniperService {
+public final class SkipLaggedServiceFactory extends ServiceFactory {
 
-	String ENDPOINT = "http://pokesnipers.com/api/v1/";
+	private SkipLaggedServiceFactory() {
+		throw new AssertionError("No instances");
+	}
 
-	@GET("pokemon")
-	Observable<PokeSniperEntity> getPokemons();
+	public static SkipLaggedService create(OkHttpClient client, Gson gson) {
+		return createRetrofit(client, gson, SkipLaggedService.ENDPOINT).create(SkipLaggedService.class);
+	}
 }

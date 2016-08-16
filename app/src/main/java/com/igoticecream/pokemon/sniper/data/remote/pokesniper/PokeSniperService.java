@@ -14,21 +14,16 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.data.remote.pokemon.pokesniper;
+package com.igoticecream.pokemon.sniper.data.remote.pokesniper;
 
-import com.google.gson.Gson;
-import com.igoticecream.pokemon.sniper.data.remote.ServiceFactory;
-
-import okhttp3.OkHttpClient;
+import retrofit2.http.GET;
+import rx.Observable;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public final class PokeSniperServiceFactory extends ServiceFactory {
+public interface PokeSniperService {
 
-	private PokeSniperServiceFactory() {
-		throw new AssertionError("No instances");
-	}
+	String ENDPOINT = "http://pokesnipers.com/api/v1/";
 
-	public static PokeSniperService create(OkHttpClient client, Gson gson) {
-		return createRetrofit(client, gson, PokeSniperService.ENDPOINT).create(PokeSniperService.class);
-	}
+	@GET("pokemon")
+	Observable<PokeSniperEntity> getPokemons();
 }

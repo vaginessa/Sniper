@@ -14,16 +14,10 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.data.remote;
+package com.igoticecream.pokemon.sniper.data.remote.skiplagged;
 
-import com.google.gson.TypeAdapterFactory;
-import com.ryanharter.auto.value.gson.GsonTypeAdapterFactory;
-
-@GsonTypeAdapterFactory
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public abstract class GsonAdapterFactory implements TypeAdapterFactory {
+public interface SkipLaggedService {
 
-	public static GsonAdapterFactory create() {
-		return new AutoValueGson_GsonAdapterFactory();
-	}
+	String ENDPOINT = "http://skiplagged.com/api/";
 }

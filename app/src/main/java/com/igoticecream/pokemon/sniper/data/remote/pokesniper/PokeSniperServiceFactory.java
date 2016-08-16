@@ -14,10 +14,21 @@
  * limitations under the License.
  */
 
-package com.igoticecream.pokemon.sniper.data.remote.pokemon.skiplagged;
+package com.igoticecream.pokemon.sniper.data.remote.pokesniper;
+
+import com.google.gson.Gson;
+import com.igoticecream.pokemon.sniper.data.remote.ServiceFactory;
+
+import okhttp3.OkHttpClient;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal", "WeakerAccess"})
-public interface SkipLaggedService {
+public final class PokeSniperServiceFactory extends ServiceFactory {
 
-	String ENDPOINT = "http://skiplagged.com/api/";
+	private PokeSniperServiceFactory() {
+		throw new AssertionError("No instances");
+	}
+
+	public static PokeSniperService create(OkHttpClient client, Gson gson) {
+		return createRetrofit(client, gson, PokeSniperService.ENDPOINT).create(PokeSniperService.class);
+	}
 }
